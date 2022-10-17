@@ -1,40 +1,17 @@
-let log = console.log;
+const init = function(){
+    let t1, t2, div1, temp, div2, cln
+    t1 = document.getElementById('target1');
+    t2 = document.getElementById('target2');
+    
+    div1 = document.querySelector('.advertisement');
+    //for(let i=0; i<5; i++){
+        t1.appendChild(div1.cloneNode(true) );
+    //}
+    
+    temp = document.querySelector('[type="text/html"]');
+    cln = temp.cloneNode(true);
+    div2 = cln.textContent;
+    t2.innerHTML = div2;
+}
 
-const uri = "https://jsonplaceholder.typicode.com/users";
-
-let req =new Request(uri, {
-    method:"GET",
-    mode:"cors"
-})
-
-fetch(req)
-    .then((response)=>{
-        if(response.ok){
-            return response.json()
-        }else{
-            throw new Error("BAAD HTTP")
-        }
-    })
-    .then((jsonData)=>{
-        // log(jsonData)
-        let ul = document.querySelector("#users");
-        let df  = new DocumentFragment();
-        jsonData.forEach((user) => {
-            let li = document.createElement("li")
-            let subUl = document.createElement("ul")
-            let subLi = document.createElement("li")
-            let p1 = document.createElement("p")
-            let p2 = document.createElement("p")
-            p1.textContent = "username"
-            p2.textContent = "email"
-            df.appendChild(p1)
-            li.textContent = user.name
-            subUl.appendChild(p2)
-            subUl.appendChild(subLi)
-            li.appendChild(subUl)
-            subLi.textContent = user.email
-            df.appendChild(li)
-        });
-        ul.appendChild(df)
-
-    })
+document.addEventListener('DOMContentLoaded', init)
